@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "MS Forms Auto-Fill",
+  "version": "1.0.0",
+  "description": "Auto-fill Likert matrices, radio questions, and rating scales on Microsoft Forms.",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "MS Forms Auto-Fill"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "msforms-autofill@local.extension",
+      "strict_min_version": "109.0"
+    }
+  }
+}

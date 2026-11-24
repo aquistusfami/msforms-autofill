@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>MS Forms Auto-Fill</title>
+  <style>
+    body { font: 13px/1.4 system-ui, sans-serif; width: 300px; margin: 12px; color: #1f2937; }
+    h1 { font-size: 14px; margin: 0 0 10px; }
+    fieldset { border: 1px solid #d1d5db; border-radius: 6px; padding: 8px 10px; margin: 0 0 10px; }
+    legend { font-weight: 600; padding: 0 4px; }
+    label { display: flex; align-items: center; gap: 6px; margin: 4px 0; cursor: pointer; }
+    input[type="text"], select { width: 100%; box-sizing: border-box; padding: 5px 6px; margin-top: 4px; border: 1px solid #cbd5e1; border-radius: 4px; }
+    .row { margin-bottom: 8px; }
+    .hint { font-size: 11px; color: #6b7280; margin-top: 2px; }
+    .hidden { display: none; }
+    button { width: 100%; padding: 8px; border: 0; border-radius: 6px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    #status { margin-top: 8px; font-size: 12px; min-height: 16px; color: #065f46; }
+    #status.err { color: #b91c1c; }
+  </style>
+</head>
+<body>
+  <h1>MS Forms Auto-Fill</h1>
+
+  <div class="row">
+    <label for="preset">Thang thái độ (phân phối tự nhiên):</label>
+    <select id="preset">
+      <option value="positive">Đồng ý / Tích cực (đa phần Rất hài lòng &amp; Hài lòng)</option>
+      <option value="neutral">Trung lập (chủ yếu Bình thường &amp; Hài lòng)</option>
+      <option value="negative">Không đồng ý (thiên về các mức cuối)</option>
+      <option value="custom">Tự chọn cột thủ công...</option>
+    </select>
+    <div id="presetHint" class="hint"></div>
+  </div>
+
+  <fieldset id="customBox" class="hidden">
+    <legend>Chọn cột Likert thủ công</legend>
+    <label><input type="checkbox" name="lvl" value="0" checked> Rất hài lòng (cột 1)</label>
+    <label><input type="checkbox" name="lvl" value="1" checked> Hài lòng (cột 2)</label>
+    <label><input type="checkbox" name="lvl" value="2"> Bình thường (cột 3)</label>
+    <label><input type="checkbox" name="lvl" value="3"> Không hài lòng (cột 4)</label>
+    <label><input type="checkbox" name="lvl" value="4"> Rất không hài lòng (cột 5)</label>
+    <label><input type="checkbox" name="lvl" value="5"> Không đánh giá (cột 6)</label>
+  </fieldset>
+
+  <div class="row">
+    <label for="naKeywords">Từ khóa tự chọn "Không đánh giá":</label>
+    <input id="naKeywords" type="text" placeholder="vd: ký túc xá, khuyết tật, vay vốn">
+    <div class="hint">Phân cách bằng dấu phẩy; áp dụng cho dòng có 6 mức.</div>
+  </div>
+
+  <div class="row">
+    <label for="singleMode">Câu chọn 1 đáp án (vd câu 13):</label>
+    <select id="singleMode">
+      <option value="random">Chọn ngẫu nhiên</option>
+      <option value="first">Chọn mục đầu tiên</option>
+      <option value="skip">Bỏ qua</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <label for="npsMode">Thang điểm 1–10 (vd câu 14):</label>
+    <select id="npsMode">
+      <option value="auto">Tự khớp theo thang thái độ</option>
+      <option value="random8_10">Ngẫu nhiên (8–10)</option>
+      <option value="10">10</option>
+      <option value="9">9</option>
+      <option value="8">8</option>
+      <option value="7">7</option>
+      <option value="6">6</option>
+      <option value="5">5</option>
+      <option value="random">Ngẫu nhiên (1–10)</option>
+      <option value="skip">Bỏ qua</option>
+    </select>
+  </div>
+
+  <label style="margin-bottom: 10px;">
+    <input id="skipChecked" type="checkbox" checked> Bỏ qua câu đã chọn sẵn
+  </label>
+
+  <button id="runBtn" type="button">Điền form (không tự Submit)</button>
+  <div id="status"></div>
+
+  <script src="fill.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
